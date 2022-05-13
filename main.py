@@ -15,21 +15,24 @@ class MyBot(commands.Bot):
     async def on_ready(self):
         print("on_ready bot")
 
-    async def on_message(self, message):
-        print("on_message " + message.content)
+    # async def on_message(self, message):
+    #     print("on_message " + message.content)
 
     async def on_member_join(self, member):
         print("on_member_join " + member.display_name)
-        general_channel = bot.get_channel(int(os.getenv("channel")))
+        general_channel = self.get_channel(int(os.getenv("channel")))
         await general_channel.send(f"Bienvenue sur le serveur {member.display_name} !")
-
-    @commands.Bot.command(name="test")
-    async def test(self, ctx, number: int):
-        print("on_message " + str(number))
-        messages = await ctx.channel.history(limit=number + 1).flatten()
-        for each_message in messages:
-            await each_message.delete()
 
 
 bot = MyBot()
+
+
+@bot.command(name="test")
+async def test(ctx, number: int):
+    print("test " + str(number))
+    messages = await ctx.channel.history(limit=number + 1).flatten()
+    for each_message in messages:
+        await each_message.delete()
+
+
 bot.run(os.getenv("token"))
