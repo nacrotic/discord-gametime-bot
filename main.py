@@ -1,13 +1,17 @@
+import locale
+import os
+import time
+
+import dateparser
 from discord.ext import commands
 from dotenv import load_dotenv
-import os
-import dateparser
-import time
 
 from game_time.Bot import MyBot
 from game_time.Emoji import Emoji
 
 load_dotenv(dotenv_path="config")
+locale.setlocale(locale.LC_ALL, 'fr_FR.utf8')
+locale.setlocale(locale.LC_TIME, 'fr_FR.utf8')
 
 bot = MyBot()
 
