@@ -19,8 +19,6 @@ bot = MyBot()
 Commande discord.
 Supprime {number} messages en plus de la commande.
 """
-
-
 @bot.command(name="clean")
 async def clean(ctx, number: int):
     print("clean " + str(number))
@@ -33,8 +31,6 @@ async def clean(ctx, number: int):
 Commande discord.
 Planifie {number} prochaine seance.
 """
-
-
 @bot.command(name="plan")
 async def plan(ctx: commands.context, date_string: str):
     print("plan " + date_string)

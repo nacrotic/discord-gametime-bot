@@ -1,5 +1,6 @@
 import os
 
+import discord.abc
 from discord import Intents
 from discord.ext import commands
 
@@ -18,8 +19,16 @@ class MyBot(commands.Bot):
     async def on_member_join(self, member):
         print("on_member_join " + member.display_name)
         general_channel = member.guild.system_channel
-        if None != general_channel:
-            welcome_message = os.getenv("welcome").replace(r'\n', '\n').format(name=member.display_name)
+        guild_chanel = member.guild.channels
+        welcome_chan: discord.abc.GuildChannel = general_channel
+        for channel in guild_chanel:
+            if channel.name == 'vélo':
+                welcome_chan = channel
+                break
+        if general_channel is not None:
+            welcome_message = os.getenv("welcome") \
+                .replace(r'\n', '\n') \
+                .format(name=member.mention, chan=welcome_chan.mention)
             message_part = TextUtils.split_message(welcome_message, 2000)
             for part in message_part:
                 await general_channel.send(part)
