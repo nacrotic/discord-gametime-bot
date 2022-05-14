@@ -14,9 +14,18 @@ class MyBot(commands.Bot):
         super().__init__(command_prefix="!", intents=default_intents)
 
     async def on_ready(self):
+        """Indication que le bot est bien demarré
+
+        :return: Coroutine tel que défini par le framwork discord.py
+        """
         print("on_ready bot")
 
-    async def on_member_join(self, member):
+    async def on_member_join(self, member: discord.Member):
+        """Message d'accueil personnalisé
+
+        :param member: les informations du membre nouvellement arrivé
+        :return: Coroutine tel que défini par le framwork discord.py
+        """
         print("on_member_join " + member.display_name)
         general_channel = member.guild.system_channel
         guild_chanel = member.guild.channels
